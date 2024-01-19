@@ -11,11 +11,11 @@ def interface():
             HDL_driver()
  
  
- def HDL_driver():
+def HDL_driver():
     print("HDL")
     HDL = get_HDL_input()
-    analyse_HDL(HDL)
-    output_HDL_result()
+    HDL_level = analyse_HDL(HDL)
+    output_HDL_result(HDL_level)
         
 def get_HDL_input():
     HDL_value = input("Enter an HDL result: ")
@@ -29,6 +29,9 @@ def analyse_HDL(HDL_value):
         return "Borderline Low"
     else:
         return "Low"
+        
+def output_HDL_result(HDL_level):
+    print("The characterization of HDL is {}".format(HDL_level))
 
        
     
