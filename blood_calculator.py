@@ -15,15 +15,15 @@ def interface():
  
  
 def HDL_driver():
-    print("HDL")
-    HDL = get_HDL_input()
+    test_name = "HDL"
+    HDL = get_input(test_name)
     HDL_level = analyse_HDL(HDL)
-    output_HDL_result(HDL_level)
+    output_result(test_name, HDL_level)
         
-def get_HDL_input():
-    HDL_value = input("Enter an HDL result: ")
-    HDL_value = int(HDL_value)
-    return HDL_value
+def get_input(test_name):
+    test_value = input("Enter an {} result: ".format(test_name))
+    test_value = int(test_value)
+    return test_value
     
 def analyse_HDL(HDL_value):
     if HDL_value >= 60:
@@ -33,20 +33,15 @@ def analyse_HDL(HDL_value):
     else:
         return "Low"
         
-def output_HDL_result(HDL_level):
-    print("The characterization of HDL is {}".format(HDL_level))
+def output_result(test_name, HDL_level):
+    print("The characterization of {} is {}".format(test_name, HDL_level))
 
 def LDL_driver():
-    print("LDL")
-    LDL = get_LDL_input()
+    test_name = "LDL"
+    LDL = get_input(test_name)
     LDL_level = analyse_LDL(LDL)
-    output_LDL_result(LDL_level)
+    output_result(test_name, LDL_level)
         
-def get_LDL_input():
-    LDL_value = input("Enter an LDL result: ")
-    LDL_value = int(LDL_value)
-    return LDL_value
-    
 def analyse_LDL(LDL_value):
     if LDL_value < 130:
         return "Normal"
@@ -56,15 +51,6 @@ def analyse_LDL(LDL_value):
         return "High"
     else:
         return "Very High"
-        
-def output_LDL_result(LDL_level):
-    print("The characterization of LDL is {}".format(LDL_level))
-
-       
-    
-    
-        
-        
         
         
 interface()
