@@ -3,6 +3,7 @@ def interface():
     print("Enter which test you want?")
     print("1 - HDL")
     print("2 - LDL")
+    print("3 - Total Cholesterol")
     print("9 - Quit")
     while True:
         choice = input("Enter your choice:")
@@ -12,6 +13,8 @@ def interface():
             HDL_driver()
         elif choice == "2":
             LDL_driver()
+        elif choice == "3":
+            total_chol_driver()
  
  
 def HDL_driver():
