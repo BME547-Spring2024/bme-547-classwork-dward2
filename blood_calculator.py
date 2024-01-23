@@ -10,18 +10,24 @@ def interface():
         if choice == "9":
             return
         elif choice == "1":
-            HDL_driver()
+            driver("HDL")
         elif choice == "2":
-            LDL_driver()
+            driver("LDL")
         elif choice == "3":
-            total_chol_driver()
+            driver("Total Cholesterol")
  
  
-def HDL_driver():
-    test_name = "HDL"
-    HDL = get_input(test_name)
-    HDL_level = analyse_HDL(HDL)
-    output_result(test_name, HDL_level)
+def driver(test_name):
+    value = get_input(test_name)
+    function_to_call = None
+    if test_name == "HDL":
+        function_to_call = analyse_HDL
+    elif test_name == "LDL":
+        function_to_call = analyse_LDL
+    elif test_name == "Total Cholesterol":
+        function_to_call = analyse_total_chol
+    level = function_to_call(value)
+    output_result(test_name, level)
         
 def get_input(test_name):
     test_value = input("Enter an {} result: ".format(test_name))
@@ -39,12 +45,6 @@ def analyse_HDL(HDL_value):
 def output_result(test_name, HDL_level):
     print("The characterization of {} is {}".format(test_name, HDL_level))
 
-def LDL_driver():
-    test_name = "LDL"
-    LDL = get_input(test_name)
-    LDL_level = analyse_LDL(LDL)
-    output_result(test_name, LDL_level)
-        
 def analyse_LDL(LDL_value):
     if LDL_value < 130:
         return "Normal"
@@ -54,12 +54,6 @@ def analyse_LDL(LDL_value):
         return "High"
     else:
         return "Very High"
-        
-def total_chol_driver():
-    test_name = "Total Cholesterol"
-    total = get_input(test_name)
-    total_level = analyse_total_chol(total)
-    output_result(test_name, total_level)
         
 def analyse_total_chol(LDL_value):
     if LDL_value < 200:
