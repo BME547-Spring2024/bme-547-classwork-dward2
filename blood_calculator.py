@@ -1,3 +1,6 @@
+print("This is the blood_calculator.py file.")
+print("Python thinks this is called {}".format(__name__))
+
 def interface():
     print("Blood Calculator")
     print("Enter which test you want?")
@@ -62,6 +65,9 @@ def analyse_total_chol(LDL_value):
         return "Borderline High"
     else:
         return "High"
-        
-interface()
-print("End")
+
+
+if __name__ == "__main__":        
+    interface()
+    print("End")
+    
