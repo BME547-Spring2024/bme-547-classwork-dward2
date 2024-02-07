@@ -1,6 +1,5 @@
-print("This is the database.py file.")
-print("Python thinks this is called {}".format(__name__))
-
+# print("This is the database.py file.")
+# print("Python thinks this is called {}".format(__name__))
 
 
 import blood_calculator as bc
