@@ -1,6 +1,7 @@
 print("This is the blood_calculator.py file.")
 print("Python thinks this is called {}".format(__name__))
 
+
 def interface():
     print("Blood Calculator")
     print("Enter which test you want?")
@@ -18,8 +19,8 @@ def interface():
             driver("LDL")
         elif choice == "3":
             driver("Total Cholesterol")
- 
- 
+
+
 def driver(test_name):
     value = get_input(test_name)
     function_to_call = None
@@ -31,22 +32,26 @@ def driver(test_name):
         function_to_call = analyse_total_chol
     level = function_to_call(value)
     output_result(test_name, level)
-        
+
+
 def get_input(test_name):
     test_value = input("Enter an {} result: ".format(test_name))
     test_value = int(test_value)
     return test_value
-    
+
+
 def analyse_HDL(HDL_value):
     if HDL_value >= 60:
         return "Normal"
-    elif 40 <= HDL_value<60:
+    elif 40 <= HDL_value < 60:
         return "Borderline Low"
     else:
         return "Low"
-        
+
+
 def output_result(test_name, HDL_level):
     print("The characterization of {} is {}".format(test_name, HDL_level))
+
 
 def analyse_LDL(LDL_value):
     if LDL_value < 130:
@@ -57,7 +62,8 @@ def analyse_LDL(LDL_value):
         return "High"
     else:
         return "Very High"
-        
+
+
 def analyse_total_chol(LDL_value):
     if LDL_value < 200:
         return "Normal"
@@ -67,7 +73,10 @@ def analyse_total_chol(LDL_value):
         return "High"
 
 
-if __name__ == "__main__":        
+def add(a, b):
+    return a + b
+
+
+if __name__ == "__main__":
     interface()
     print("End")
-    
