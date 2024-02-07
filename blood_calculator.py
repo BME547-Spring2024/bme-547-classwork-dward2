@@ -65,6 +65,10 @@ def analyse_total_chol(LDL_value):
         return "Borderline High"
     else:
         return "High"
+        
+        
+def add(a, b):
+    return a + b
 
 
 if __name__ == "__main__":        
