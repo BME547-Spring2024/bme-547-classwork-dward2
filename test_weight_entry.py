@@ -12,14 +12,14 @@ import pytest
     ("-22 lb", -10),
     ("", -1),
     # ("ten kg", -1),
-    
+
     ])
 def test_parse_weight_input(input, expected):
     from weight_entry import parse_weight_input
     answer = parse_weight_input(input)
     assert answer == expected
-    
-    
+
+
 def test_add():
     from weight_entry import add
     a = 0.1
