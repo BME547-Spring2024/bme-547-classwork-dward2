@@ -24,7 +24,6 @@ def convert_lb_to_kg(weight_lb):
     return weight_kg
 
 
-
 def add(a, b):
     return a + b
 
