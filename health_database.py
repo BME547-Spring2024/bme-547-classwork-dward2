@@ -31,7 +31,7 @@ def print_database(db):
 
 def get_patient(db, MRN):
     for patient in db:
-        if patient[2] == MRN:
+        if patient["MRN"] == MRN:
             answer = patient
             break
     return answer
