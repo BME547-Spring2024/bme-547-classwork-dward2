@@ -1,11 +1,19 @@
 """
-Single patient record:  [Name (str), age (int), MRN (int), Tests (list)]
+Single patient record:  {"First Name": str,
+                         "Last Name": str,
+                         "Age": int,
+                         "MRN": int, 
+                         "Tests": list]
 Test list:  [("HDL", 100), ("LDL", 15), ("HR", 62)]
 """
 
 
-def create_database_entry(name, age, mrn):
-    new_patient = [name, age, mrn, []]
+def create_database_entry(first_name, last_name, age, mrn):
+    new_patient = {"First Name": first_name,
+                   "Last Name": last_name,
+                   "Age": age,
+                   "MRN": mrn,
+                   "Tests": []]
     return new_patient
 
 
