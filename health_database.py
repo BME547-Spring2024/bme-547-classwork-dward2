@@ -23,13 +23,10 @@ def get_full_name(patient):
     
 
 def print_database(db):
-    rooms = ["Room A", "Room B", "Room C"]
-    for i, zipped_data in enumerate(zip(db, rooms)):
-        patient, room = zipped_data
-        print("{} = Name: {}, MRN: {}, Age:{}, Room: {}".format(i, patient[0],
-                                                                patient[2],
-                                                                patient[1],
-                                                                room))
+    for patient in db:
+        print("MRN: {}, Full Name: {}, Age:{}".format(patient["MRN"],
+                                                      get_full_name(patient),
+                                                      patient["Age"]))
 
 
 def get_patient(db, MRN):
