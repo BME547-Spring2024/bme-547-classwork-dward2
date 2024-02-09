@@ -39,8 +39,7 @@ def get_patient(db, MRN):
 
 def add_test_to_patient(db, MRN, test_name, test_value):
     patient = get_patient(db, MRN)
-    print("In function: {}".format(id(patient)))
-    patient[3].append((test_name, test_value))
+    patient["Tests"].append((test_name, test_value))
 
 
 def main():
