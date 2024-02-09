@@ -17,6 +17,11 @@ def create_database_entry(first_name, last_name, age, mrn):
     return new_patient
 
 
+def get_full_name(patient):
+    full_name = "{} {}".format(patient["First Name"], patient["Last Name"])
+    return full_name
+    
+
 def print_database(db):
     rooms = ["Room A", "Room B", "Room C"]
     for i, zipped_data in enumerate(zip(db, rooms)):
