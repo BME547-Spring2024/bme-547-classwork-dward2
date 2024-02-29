@@ -1,6 +1,6 @@
 import requests  # Need to import packages for making get and post requests
 
-## GET Request Demonstration - GitHub Branches Request
+# ***** GET Request Demonstration - GitHub Branches Request *****
 server = "https://api.github.com"  # The server URL for the GitHub API.
 
 # Make a request to get branch information from GitHub
@@ -20,7 +20,7 @@ for branch in answer:
     print(branch["name"])
 
 
-## Post Request Demonstration:  Name Server
+# ***** Post Request Demonstration:  Name Server *****
 
 # Create the information to be sent to the server.  Consult server API for
 #   needed format and contents.
@@ -34,4 +34,3 @@ out_json = {
 r = requests.post("http://vcm-21170.vm.duke.edu:5000/student", json=out_json)
 print(r.status_code)
 print(r.text)
-
