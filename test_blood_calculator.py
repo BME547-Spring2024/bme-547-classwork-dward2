@@ -22,6 +22,3 @@ def test_add(a, b, expected):
     from blood_calculator import add
     answer = add(a, b)
     assert answer == expected
-
-
-x = [1, 2, 3,]
