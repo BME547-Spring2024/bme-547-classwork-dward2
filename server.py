@@ -7,11 +7,13 @@ app = Flask(__name__)
 def server_status():
     return "My server is on."
 
+
 @app.route("/info", methods=["GET"])
 def server_info():
     out_string = "BME 547 Class Demo Server<br>"
     out_string += "Written by David Ward"
     return out_string
+
 
 @app.route("/HDL", methods=["POST"])
 def HDL_analysis():
@@ -34,8 +36,6 @@ def HDL_analysis_2(HDL_value, patient):
     answer = analyse_HDL(value)
     ans = "{} is {}".format(patient, answer)
     return ans
-
-
 
 
 if __name__ == '__main__':
