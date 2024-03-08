@@ -17,13 +17,26 @@ db = []
 
 @app.route("/new_patient", methods=["POST"])
 def post_new_patient():
-    """
-    1. Get the data sent with the request.
-    2. Call other functions to do all the work.  One of those functions
-       should be an input validator.
-    3. Return the response.
+    """Route handler for addition of new patient to server database
+
+    This function acts as the Flask handler for the "/new_patient" route.
+    Information is received about the new patient and that information is
+    validated and added to the database if a valid entry.
+
+    For this route, a JSON string is received as input and should be in the
+    following format:
 
     {"name": str, "id": int, "blood_type": str}
+
+    Flask handler functions should only do three things:
+    1. Get the data sent with the request.
+    2. Call other functions to do all the work.
+    3. Return the response.
+
+    Returns:
+        str: a message about the success or failure of the route
+        int: the status code for the response
+
     """
     # Get the data sent with the request.
     in_json = request.get_json()
@@ -34,6 +47,27 @@ def post_new_patient():
 
 
 def new_patient_driver(in_json):
+    """ Validates and adds new patient information to the database
+
+    This function implements the /new_patient route of the server.  The input
+    is a dictionary in the following format:
+
+    {"name": str, "id": int, "blood_type": str}
+
+    First, this function calls a validation function to ensure that the
+    expected keys and data types exist in the input dictionary.  If the
+    input data is successfully validated, a correctly formatted dictionary
+    is made with the new patient information and this dictionary is added
+    to the database.
+
+    Args:
+        in_json (dict): the input data for the new patient
+
+    Returns:
+        str: Message about the success or failure of the function
+        int: a status code to send back with the response
+
+    """
     expected_keys = ["name", "id", "blood_type"]
     expected_types = [str, int, str]
     message, status_code = validate_dictionary_input(in_json,
@@ -98,6 +132,24 @@ def add_test_to_patient(patient, test_name, test_result):
 
 @app.route("/get_results/<patient_id>", methods=["GET"])
 def get_get_results(patient_id):
+    """ Route handler for the /get_results/<patient_id> GET route
+
+    This function handles the /get_results/<patient_id> GET route for the
+    server.  This is a variable URL in which the user is expected to put the
+    patient id in place of the <patient_id> in the url.  For example:
+    /get_results/101.  The actual input for the variable URL is placed in the
+    patient_id parameter as a string.  This function then calls another
+    function that implements the retrieval of the requested patient
+    information.
+
+    Args:
+        patient_id (str): the user supplied patient id number
+
+    Returns:
+        str: a JSON-string of either a list of test results or an error message
+        int: a status code for the response
+
+    """
     results, status_code = get_results_driver(patient_id)
     return jsonify(results), status_code
 
