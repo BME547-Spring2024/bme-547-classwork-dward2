@@ -34,7 +34,11 @@ def post_new_patient():
 
 
 def new_patient_driver(in_json):
-    message, status_code = validate_new_patient_input(in_json)
+    expected_keys = ["name", "id", "blood_type"]
+    expected_types = [str, int, str]
+    message, status_code = validate_dictionary_input(in_json,
+                                                     expected_keys,
+                                                     expected_types)
     if message is not True:
         return message, status_code
     new_patient = {"name": in_json["name"],
@@ -46,14 +50,12 @@ def new_patient_driver(in_json):
     return "Patient added", 200
 
 
-def validate_new_patient_input(in_json):
+def validate_dictionary_input(in_json, expected_keys, expected_types):
     if type(in_json) is not dict:
         return "The input was not a dictionary as needed.", 400
-    expected_keys = ["name", "id", "blood_type"]
     for key in expected_keys:
         if key not in in_json.keys():
             return "The key {} was missing.".format(key), 400
-    expected_types = [str, int, str]
     for key, exp_type in zip(expected_keys, expected_types):
         if type(in_json[key]) is not exp_type:
             return "The {} key has an incorrect value type".format(key), 400
@@ -68,7 +70,11 @@ def post_add_test():
 
 
 def add_test_driver(in_json):
-    message, status_code = validate_add_test_input(in_json)
+    expected_keys = ["id", "test_name", "test_result"]
+    expected_types = [int, str, int]
+    message, status_code = validate_dictionary_input(in_json,
+                                                     expected_keys,
+                                                     expected_types)
     if message is not True:
         return message, status_code
     patient = get_patient(in_json["id"])
@@ -76,20 +82,6 @@ def add_test_driver(in_json):
         return "Id {} not found in database".format(in_json["id"]), 400
     add_test_to_patient(patient, in_json["test_name"], in_json["test_result"])
     return "Test successfully added to patient", 200
-
-
-def validate_add_test_input(in_json):
-    if type(in_json) is not dict:
-        return "The input was not a dictionary as needed.", 400
-    expected_keys = ["id", "test_name", "test_result"]
-    for key in expected_keys:
-        if key not in in_json.keys():
-            return "The key {} was missing.".format(key), 400
-    expected_types = [int, str, int]
-    for key, exp_type in zip(expected_keys, expected_types):
-        if type(in_json[key]) is not exp_type:
-            return "The {} key has an incorrect value type".format(key), 400
-    return True, 200
 
 
 def get_patient(id_number):
