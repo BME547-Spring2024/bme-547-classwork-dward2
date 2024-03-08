@@ -144,7 +144,7 @@ def test_add_test_to_patient(data):
               "test_names": [], "test_results": []}
              ],
     }),
-({  # Patient not in database
+    ({  # Patient not in database
         "db": [{"name": "Dave", "id": 101, "blood_type": "O+",
                 "test_names": ["LDL"], "test_results": [46]},
                {"name": "Andrew", "id": 102, "blood_type": "A+",
@@ -153,12 +153,11 @@ def test_add_test_to_patient(data):
         "in_json": {"id": 103, "test_name": "HDL", "test_result": 44},
         "expected_answer": "Id 103 not found in database",
         "status_code": 400,
-        "expected_db":
-            [{"name": "Dave", "id": 101, "blood_type": "O+",
-              "test_names": ["LDL"], "test_results": [46]},
-             {"name": "Andrew", "id": 102, "blood_type": "A+",
-              "test_names": [], "test_results": []}
-             ],
+        "expected_db": [{"name": "Dave", "id": 101, "blood_type": "O+",
+                         "test_names": ["LDL"], "test_results": [46]},
+                        {"name": "Andrew", "id": 102, "blood_type": "A+",
+                         "test_names": [], "test_results": []}
+                        ],
     }),
 ])
 def test_add_test_driver(data):
@@ -173,9 +172,9 @@ def test_add_test_driver(data):
 
 
 patient_1 = {"name": "Dave", "id": 101, "blood_type": "O+",
-                        "test_names": ["LDL", "HDL"], "test_results": [46, 35]}
+             "test_names": ["LDL", "HDL"], "test_results": [46, 35]}
 patient_2 = {"name": "Andrew", "id": 102, "blood_type": "A+",
-                        "test_names": [], "test_results": []}
+             "test_names": [], "test_results": []}
 
 
 @pytest.mark.parametrize("data", [
