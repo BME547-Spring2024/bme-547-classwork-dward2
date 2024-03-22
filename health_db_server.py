@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+from pymodm import connect, MongoModel, fields
+from pymodm import errors as pymodm_errors
 
 app = Flask(__name__)
 
@@ -12,8 +14,12 @@ patient = { "name": <str>,
     }
 """
 
-db = []
-
+class Patient(MongoModel):
+    name = fields.CharField()
+    id = fields.IntegerField(primary_key=True)
+    blood_type = fields.CharField()
+    test_names = fields.ListField()
+    test_results = fields.ListField()
 
 @app.route("/new_patient", methods=["POST"])
 def post_new_patient():
@@ -75,12 +81,12 @@ def new_patient_driver(in_json):
                                                      expected_types)
     if message is not True:
         return message, status_code
-    new_patient = {"name": in_json["name"],
-                   "id": in_json["id"],
-                   "blood_type": in_json["blood_type"],
-                   "test_names": [],
-                   "test_results": []}
-    db.append(new_patient)
+    new_patient = Patient(
+        name=in_json["name"],
+        id=in_json["id"],
+        blood_type=in_json["blood_type"],
+    )
+    new_patient.save()
     return "Patient added", 200
 
 
@@ -119,15 +125,17 @@ def add_test_driver(in_json):
 
 
 def get_patient(id_number):
-    for patient in db:
-        if patient["id"] == id_number:
-            return patient
-    return None
+    try:
+        patient = Patient.objects.raw({"_id": id_number}).first()
+    except pymodm_errors.DoesNotExist:
+        return None
+    return patient
 
 
 def add_test_to_patient(patient, test_name, test_result):
-    patient["test_names"].append(test_name)
-    patient["test_results"].append(test_result)
+    patient.test_names.append(test_name)
+    patient.test_results.append(test_result)
+    patient.save()
 
 
 @app.route("/get_results/<patient_id>", methods=["GET"])
@@ -163,11 +171,17 @@ def get_results_driver(patient_id):
     if patient is None:
         return "Id {} not found in database".format(patient_id), 400
     output_list = []
-    for test_name, test_result in zip(patient["test_names"],
-                                      patient["test_results"]):
+    for test_name, test_result in zip(patient.test_names,
+                                      patient.test_results):
         output_list.append("{}: {}".format(test_name, test_result))
     return output_list, 200
 
 
+def init_server():
+    connect("mongodb+srv://daw_spring:daw_spring@bme547.ba348.mongodb.net/"
+            "class_work?retryWrites=true&w=majority&appName=BME547")
+    # logging.basicConfig()
+
 if __name__ == '__main__':
+    init_server()
     app.run()

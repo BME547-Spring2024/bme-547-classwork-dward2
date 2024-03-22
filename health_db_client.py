@@ -16,6 +16,9 @@ r = requests.post(server + "/new_patient", json=patient_2)
 print(r.status_code)
 print(r.text)
 
+
+
+
 new_test = {"id": 101, "test_name": "HDL", "test_result": 65}
 r = requests.post(server + "/add_test", json=new_test)
 print(r.status_code)
@@ -23,5 +26,9 @@ print(r.text)
 
 new_test = {"id": 101, "test_name": "LDL", "test_result": 75}
 r = requests.post(server + "/add_test", json=new_test)
+print(r.status_code)
+print(r.text)
+
+r = requests.get(server + "/get_results/101")
 print(r.status_code)
 print(r.text)

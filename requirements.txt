@@ -2,4 +2,5 @@ pytest==8.0.2
 pytest-pycodestyle
 requests
 flask
-
+pymodm
+dnspython
