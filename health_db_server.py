@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from pymodm import connect, MongoModel, fields
 from pymodm import errors as pymodm_errors
+from server_database import Patient
 
 app = Flask(__name__)
 
@@ -14,12 +15,6 @@ patient = { "name": <str>,
     }
 """
 
-class Patient(MongoModel):
-    name = fields.CharField()
-    id = fields.IntegerField(primary_key=True)
-    blood_type = fields.CharField()
-    test_names = fields.ListField()
-    test_results = fields.ListField()
 
 @app.route("/new_patient", methods=["POST"])
 def post_new_patient():

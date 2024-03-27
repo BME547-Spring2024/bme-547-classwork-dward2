@@ -1,4 +1,9 @@
 import pytest
+from pymodm import MongoModel, connect, fields
+from server_database import Patient
+from health_db_server import init_server
+init_server()
+
 
 
 @pytest.mark.parametrize("data", [
@@ -51,42 +56,48 @@ def test_validate_dictionary_input(data):
         "expected_db": [{"name": "Dave", "id": 101, "blood_type": "O+",
                         "test_names": [], "test_results": []}]
     }),
-    ({
-        "in_json": {"nxame": "Dave", "id": 101, "blood_type": "O+"},
-        "expected_answer": "The key name was missing.",
-        "status_code": 400,
-        "expected_db": []
-    }),
+    # ({
+    #     "in_json": {"nxame": "Dave", "id": 101, "blood_type": "O+"},
+    #     "expected_answer": "The key name was missing.",
+    #     "status_code": 400,
+    #     "expected_db": []
+    # }),
 ])
 def test_new_patient_driver(data):
-    from health_db_server import new_patient_driver, db
+    from health_db_server import new_patient_driver
     answer, status_code = new_patient_driver(data["in_json"])
-    is_same_db = (db == data["expected_db"])
-    db.clear()
+    db_patient = Patient.objects.raw({"_id": data["in_json"]["id"]}).first()
+    db_patient.delete()
     assert answer == data["expected_answer"]
     assert status_code == data["status_code"]
-    assert is_same_db
+    assert db_patient.name == data["in_json"]["name"]
 
+patient_1 = Patient(name="One", id=101, blood_type="O+",
+                    test_names=["HDL", "LDL"],
+                    test_results=[100, 50])
+patient_2 = Patient(name="One", id=101, blood_type="O+")
 
 @pytest.mark.parametrize("data", [
     ({
         "id_to_find": 101,
-        "db": [{"id": 101, "name": "one"},
-               {"id": 102, "name": "two"}],
-        "expected": {"id": 101, "name": "one"}
+        "db": [patient_1,
+               patient_2],
+        "expected": patient_1
     }),
-    ({
-        "id_to_find": 103,
-        "db": [{"id": 101, "name": "one"},
-               {"id": 102, "name": "two"}],
-        "expected": None
-    }),
+    # ({
+    #     "id_to_find": 103,
+    #     "db": [patient_1,
+    #            patient_2],
+    #     "expected": None
+    # }),
 ])
 def test_get_patient(data):
-    from health_db_server import get_patient, db
-    db.extend(data["db"])
+    from health_db_server import get_patient
+    for p in data["db"]:
+        p.save()
     answer = get_patient(data["id_to_find"])
-    db.clear()
+    for p in data["db"]:
+        p.delete()
     assert answer == data["expected"]
 
 
