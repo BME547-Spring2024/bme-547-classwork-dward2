@@ -5,16 +5,6 @@ from server_database import Patient
 
 app = Flask(__name__)
 
-"""
-db = []
-patient = { "name": <str>,
-            "id": <int>,
-            "blood_type": <str>,
-            "test_names": <list(str)>
-            "test_results": <list(anything)>
-    }
-"""
-
 
 @app.route("/new_patient", methods=["POST"])
 def post_new_patient():
@@ -176,6 +166,7 @@ def init_server():
     connect("mongodb+srv://daw_spring:daw_spring@bme547.ba348.mongodb.net/"
             "class_work?retryWrites=true&w=majority&appName=BME547")
     # logging.basicConfig()
+
 
 if __name__ == '__main__':
     init_server()

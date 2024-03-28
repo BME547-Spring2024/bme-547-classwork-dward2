@@ -1,5 +1,6 @@
 from pymodm import MongoModel, fields
 
+
 class Patient(MongoModel):
     name = fields.CharField()
     id = fields.IntegerField(primary_key=True)
