@@ -3,3 +3,5 @@ pytest-pycodestyle
 requests
 flask
 Pillow
+pymodm
+dnspython
