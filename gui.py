@@ -4,7 +4,6 @@ from tkinter import messagebox, filedialog
 from PIL import Image, ImageTk
 
 
-
 def process_donor(user_name, id_number, blood_letter, rh_factor,
                   donation_center):
     if user_name == "":
@@ -29,6 +28,7 @@ def load_and_size_image(filename):
     new_y = round(raw_pil_image.size[1] * alpha)
     pil_image = raw_pil_image.resize((new_x, new_y))
     return pil_image
+
 
 def main():
 
@@ -82,7 +82,7 @@ def main():
     id_label.grid(column=0, row=2, sticky=tk.E, pady=5)
     id_data = tk.StringVar()
     id_entry = ttk.Entry(root, textvariable=id_data)
-    id_entry.grid(column=1, row=2, sticky = tk.W, pady=5)
+    id_entry.grid(column=1, row=2, sticky=tk.W, pady=5)
 
     # Create label to use for GUI output
     result_label = ttk.Label(root)
@@ -120,13 +120,12 @@ def main():
     pil_image = load_and_size_image(filename)
     tk_image = ImageTk.PhotoImage(pil_image)
     image_label = ttk.Label(root, image=tk_image)
-    image_label.image= tk_image
+    image_label.image = tk_image
     image_label.grid(column=3, row=0, rowspan=5)
 
     image_select_btn = ttk.Button(root, text="Select Picture",
                                   command=image_select_cmd)
     image_select_btn.grid(column=4, row=0)
-
 
     # Create button widgets
     cancel_btn = ttk.Button(root, text="Cancel", command=cancel_btn_cmd)
@@ -134,12 +133,9 @@ def main():
     ok_btn = ttk.Button(root, text="Ok", command=ok_btn_cmd)
     ok_btn.grid(column=1, row=6)
 
-
     root.mainloop()
     print("Finished")
 
 
 if __name__ == "__main__":
     main()
-
-
