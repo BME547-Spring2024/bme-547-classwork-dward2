@@ -5,9 +5,15 @@ from PIL import Image, ImageTk
 
 
 
-def process_donor(user_name, rh_factor):
-    print("Donor: {}".format(user_name))
-    print("Blood Type: {}".format(rh_factor))
+def process_donor(user_name, id_number, blood_letter, rh_factor,
+                  donation_center):
+    if user_name == "":
+        return "No donor name entered.  Nothing saved."
+    if id_number == "":
+        return "No id number entered.  Nothind saved."
+    print("Donor, Id: {}, {}".format(user_name, id_number))
+    print("Blood Type: {}{}".format(blood_letter, rh_factor))
+    print("Donation Center: {}".format(donation_center))
     return "Donor Saved"
 
 
@@ -35,10 +41,14 @@ def main():
     def ok_btn_cmd():
         # Get data from the GUI
         name_input = name_data.get()
+        id_input = id_data.get()
+        blood_letter = blood_type.get()
         rh_factor = rh_value.get()
+        dc_input = dc_choice.get()
         # Call an external, testable function that receives GUI Data and
         #    returns an answer
-        result = process_donor(name_input, rh_factor)
+        result = process_donor(name_input, id_input, blood_letter, rh_factor,
+                               dc_input)
         # Update the GUI as needed
         result_label.configure(text=result)
 
@@ -68,10 +78,15 @@ def main():
     # name_data.set("Enter your name here")
     name_entry = ttk.Entry(root, textvariable=name_data)
     name_entry.grid(column=1, row=1, sticky=tk.W)
+    id_label = ttk.Label(root, text="ID:")
+    id_label.grid(column=0, row=2, sticky=tk.E, pady=5)
+    id_data = tk.StringVar()
+    id_entry = ttk.Entry(root, textvariable=id_data)
+    id_entry.grid(column=1, row=2, sticky = tk.W, pady=5)
 
     # Create label to use for GUI output
     result_label = ttk.Label(root)
-    result_label.grid(column=1, row=5)
+    result_label.grid(column=1, row=5, columnspan=2, sticky=tk.W)
 
     # Create widgets for rH factor
     rh_value = tk.StringVar()
